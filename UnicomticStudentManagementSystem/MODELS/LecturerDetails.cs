@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace StudentManagementSystem.MODELS
 {
-    internal class LecturerDetails
+    public class LecturerDetails
     {
-        public int LectureId { get; set; }
-        public string LectureName { get; set; } = string.Empty;
-        public string StuSubjectName { get; set; }= string.Empty;
-
-
+        public int LecturerId { get; set; }
+        public string LecturerName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Department { get; set; } = string.Empty;
     }
 }

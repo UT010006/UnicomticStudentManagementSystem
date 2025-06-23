@@ -28,92 +28,95 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            txtSubjectId = new TextBox();
-            label2 = new Label();
+            cmbSubject = new ComboBox();
+            lblSubject = new Label();
+            lblTimeslot = new Label();
+            cmbRoom = new ComboBox();
             txtTimeslot = new TextBox();
-            label3 = new Label();
-            txtRoomId = new TextBox();
+            lblRoom = new Label();
             btnAdd = new Button();
             btnDelete = new Button();
             dataGridViewSubTimetable = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridViewSubTimetable).BeginInit();
             SuspendLayout();
             // 
-            // label1
+            // cmbSubject
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(138, 24);
-            label1.Name = "label1";
-            label1.Size = new Size(63, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Subject ID:\n";
+            cmbSubject.FormattingEnabled = true;
+            cmbSubject.Location = new Point(201, 23);
+            cmbSubject.Name = "cmbSubject";
+            cmbSubject.Size = new Size(121, 23);
+            cmbSubject.TabIndex = 0;
+            cmbSubject.Text = "Select subject\n";
             // 
-            // txtSubjectId
+            // lblSubject
             // 
-            txtSubjectId.Location = new Point(228, 16);
-            txtSubjectId.Name = "txtSubjectId";
-            txtSubjectId.Size = new Size(100, 23);
-            txtSubjectId.TabIndex = 1;
+            lblSubject.AutoSize = true;
+            lblSubject.Location = new Point(117, 26);
+            lblSubject.Name = "lblSubject";
+            lblSubject.Size = new Size(46, 15);
+            lblSubject.TabIndex = 1;
+            lblSubject.Text = "Subject";
             // 
-            // label2
+            // lblTimeslot
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(142, 60);
-            label2.Name = "label2";
-            label2.Size = new Size(59, 15);
-            label2.TabIndex = 2;
-            label2.Text = "Time Slot:\n";
+            lblTimeslot.AutoSize = true;
+            lblTimeslot.Location = new Point(117, 60);
+            lblTimeslot.Name = "lblTimeslot";
+            lblTimeslot.Size = new Size(59, 15);
+            lblTimeslot.TabIndex = 2;
+            lblTimeslot.Text = "Time Slot:\n";
+            // 
+            // cmbRoom
+            // 
+            cmbRoom.FormattingEnabled = true;
+            cmbRoom.Location = new Point(201, 86);
+            cmbRoom.Name = "cmbRoom";
+            cmbRoom.Size = new Size(121, 23);
+            cmbRoom.TabIndex = 3;
             // 
             // txtTimeslot
             // 
-            txtTimeslot.Location = new Point(228, 52);
+            txtTimeslot.Location = new Point(201, 52);
             txtTimeslot.Name = "txtTimeslot";
-            txtTimeslot.Size = new Size(100, 23);
-            txtTimeslot.TabIndex = 3;
+            txtTimeslot.Size = new Size(121, 23);
+            txtTimeslot.TabIndex = 4;
             // 
-            // label3
+            // lblRoom
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(142, 95);
-            label3.Name = "label3";
-            label3.Size = new Size(56, 15);
-            label3.TabIndex = 4;
-            label3.Text = "Room ID:\n";
-            // 
-            // txtRoomId
-            // 
-            txtRoomId.Location = new Point(228, 87);
-            txtRoomId.Name = "txtRoomId";
-            txtRoomId.Size = new Size(100, 23);
-            txtRoomId.TabIndex = 5;
+            lblRoom.AutoSize = true;
+            lblRoom.Location = new Point(125, 94);
+            lblRoom.Name = "lblRoom";
+            lblRoom.Size = new Size(42, 15);
+            lblRoom.TabIndex = 5;
+            lblRoom.Text = "Room:\n";
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(194, 152);
+            btnAdd.Location = new Point(498, 26);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(76, 23);
+            btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 6;
-            btnAdd.Text = "Add Timetable\n";
+            btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(312, 152);
+            btnDelete.Location = new Point(498, 85);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 7;
-            btnDelete.Text = "Delete Selected\n";
+            btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
             // dataGridViewSubTimetable
             // 
             dataGridViewSubTimetable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewSubTimetable.Location = new Point(472, 12);
+            dataGridViewSubTimetable.Location = new Point(179, 180);
             dataGridViewSubTimetable.Name = "dataGridViewSubTimetable";
-            dataGridViewSubTimetable.Size = new Size(240, 150);
+            dataGridViewSubTimetable.Size = new Size(417, 150);
             dataGridViewSubTimetable.TabIndex = 8;
             dataGridViewSubTimetable.Click += SubTimetableForm_Load;
             // 
@@ -125,12 +128,12 @@
             Controls.Add(dataGridViewSubTimetable);
             Controls.Add(btnDelete);
             Controls.Add(btnAdd);
-            Controls.Add(txtRoomId);
-            Controls.Add(label3);
+            Controls.Add(lblRoom);
             Controls.Add(txtTimeslot);
-            Controls.Add(label2);
-            Controls.Add(txtSubjectId);
-            Controls.Add(label1);
+            Controls.Add(cmbRoom);
+            Controls.Add(lblTimeslot);
+            Controls.Add(lblSubject);
+            Controls.Add(cmbSubject);
             Name = "SubTimetableForm";
             Text = "SubTimetableForm";
             Load += SubTimetableForm_Load;
@@ -141,12 +144,12 @@
 
         #endregion
 
-        private Label label1;
-        private TextBox txtSubjectId;
-        private Label label2;
+        private ComboBox cmbSubject;
+        private Label lblSubject;
+        private Label lblTimeslot;
+        private ComboBox cmbRoom;
         private TextBox txtTimeslot;
-        private Label label3;
-        private TextBox txtRoomId;
+        private Label lblRoom;
         private Button btnAdd;
         private Button btnDelete;
         private DataGridView dataGridViewSubTimetable;

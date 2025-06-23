@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace StudentManagementSystem
 {
-    internal class SubTimetable
+    public class SubTimetable
     {
         public int  TimetableId { get; set; } 
-        public string StuSubjectId { get; set; } = string.Empty;
+        public int StuSubjectId { get; set; } 
         public string SubTimeslot { get; set; } = string.Empty;
         public int RoomId { get; set; }
 

@@ -27,6 +27,3 @@ namespace StudentManagementSystem.Controllers
         }
     }
 }
-
-   
-

@@ -28,91 +28,149 @@
         /// </summary>
         private void InitializeComponent()
         {
-            cmbStudent = new ComboBox();
-            cmbSubject = new ComboBox();
-            dtpDate = new DateTimePicker();
+            lblStuId = new Label();
+            txtStuId = new TextBox();
+            lblSubjectId = new Label();
+            txtSubjectId = new TextBox();
+            lblDate = new Label();
+            dateTimePickerDate = new DateTimePicker();
+            lblStatus = new Label();
             cmbStatus = new ComboBox();
-            btnMark = new Button();
-            dgvAttendance = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)dgvAttendance).BeginInit();
+            btnAdd = new Button();
+            btnDelete = new Button();
+            dataGridViewAttendance = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewAttendance).BeginInit();
             SuspendLayout();
             // 
-            // cmbStudent
+            // lblStuId
             // 
-            cmbStudent.FormattingEnabled = true;
-            cmbStudent.Location = new Point(225, 37);
-            cmbStudent.Name = "cmbStudent";
-            cmbStudent.Size = new Size(121, 23);
-            cmbStudent.TabIndex = 0;
-            cmbStudent.Text = "— (Student List)\n";
+            lblStuId.AutoSize = true;
+            lblStuId.Location = new Point(112, 19);
+            lblStuId.Name = "lblStuId";
+            lblStuId.Size = new Size(62, 15);
+            lblStuId.TabIndex = 0;
+            lblStuId.Text = "Student ID\n";
             // 
-            // cmbSubject
+            // txtStuId
             // 
-            cmbSubject.FormattingEnabled = true;
-            cmbSubject.Location = new Point(225, 79);
-            cmbSubject.Name = "cmbSubject";
-            cmbSubject.Size = new Size(121, 23);
-            cmbSubject.TabIndex = 1;
-            cmbSubject.Text = "— (Subject List)\n";
+            txtStuId.Location = new Point(214, 16);
+            txtStuId.Name = "txtStuId";
+            txtStuId.Size = new Size(100, 23);
+            txtStuId.TabIndex = 1;
             // 
-            // dtpDate
+            // lblSubjectId
             // 
-            dtpDate.Location = new Point(201, 121);
-            dtpDate.Name = "dtpDate";
-            dtpDate.Size = new Size(200, 23);
-            dtpDate.TabIndex = 2;
+            lblSubjectId.AutoSize = true;
+            lblSubjectId.Location = new Point(114, 49);
+            lblSubjectId.Name = "lblSubjectId";
+            lblSubjectId.Size = new Size(60, 15);
+            lblSubjectId.TabIndex = 2;
+            lblSubjectId.Text = "Subject ID\n";
+            // 
+            // txtSubjectId
+            // 
+            txtSubjectId.Location = new Point(214, 45);
+            txtSubjectId.Name = "txtSubjectId";
+            txtSubjectId.Size = new Size(100, 23);
+            txtSubjectId.TabIndex = 3;
+            // 
+            // lblDate
+            // 
+            lblDate.AutoSize = true;
+            lblDate.Location = new Point(133, 91);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new Size(31, 15);
+            lblDate.TabIndex = 4;
+            lblDate.Text = "Date";
+            // 
+            // dateTimePickerDate
+            // 
+            dateTimePickerDate.Location = new Point(214, 85);
+            dateTimePickerDate.Name = "dateTimePickerDate";
+            dateTimePickerDate.Size = new Size(200, 23);
+            dateTimePickerDate.TabIndex = 5;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Location = new Point(136, 134);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(39, 15);
+            lblStatus.TabIndex = 6;
+            lblStatus.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new Point(225, 164);
+            cmbStatus.Location = new Point(214, 131);
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(132, 23);
-            cmbStatus.TabIndex = 3;
-            cmbStatus.Text = "— (Present/Absent)\n";
+            cmbStatus.Size = new Size(121, 23);
+            cmbStatus.TabIndex = 7;
             // 
-            // btnMark
+            // btnAdd
             // 
-            btnMark.Location = new Point(257, 202);
-            btnMark.Name = "btnMark";
-            btnMark.Size = new Size(75, 23);
-            btnMark.TabIndex = 4;
-            btnMark.Text = "Mark Attendance\n";
-            btnMark.UseVisualStyleBackColor = true;
+            btnAdd.Location = new Point(539, 65);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(75, 23);
+            btnAdd.TabIndex = 8;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
-            // dgvAttendance
+            // btnDelete
             // 
-            dgvAttendance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAttendance.Location = new Point(201, 231);
-            dgvAttendance.Name = "dgvAttendance";
-            dgvAttendance.Size = new Size(240, 150);
-            dgvAttendance.TabIndex = 5;
+            btnDelete.Location = new Point(539, 126);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(75, 23);
+            btnDelete.TabIndex = 9;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // dataGridViewAttendance
+            // 
+            dataGridViewAttendance.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewAttendance.Location = new Point(151, 196);
+            dataGridViewAttendance.Name = "dataGridViewAttendance";
+            dataGridViewAttendance.Size = new Size(442, 214);
+            dataGridViewAttendance.TabIndex = 10;
             // 
             // StuAttendanceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dgvAttendance);
-            Controls.Add(btnMark);
+            Controls.Add(dataGridViewAttendance);
+            Controls.Add(btnDelete);
+            Controls.Add(btnAdd);
             Controls.Add(cmbStatus);
-            Controls.Add(dtpDate);
-            Controls.Add(cmbSubject);
-            Controls.Add(cmbStudent);
+            Controls.Add(lblStatus);
+            Controls.Add(dateTimePickerDate);
+            Controls.Add(lblDate);
+            Controls.Add(txtSubjectId);
+            Controls.Add(lblSubjectId);
+            Controls.Add(txtStuId);
+            Controls.Add(lblStuId);
             Name = "StuAttendanceForm";
             Text = "StuAttendanceForm";
             Load += StuAttendanceForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvAttendance).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewAttendance).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private ComboBox cmbStudent;
-        private ComboBox cmbSubject;
-        private DateTimePicker dtpDate;
+        private Label lblStuId;
+        private TextBox txtStuId;
+        private Label lblSubjectId;
+        private TextBox txtSubjectId;
+        private Label lblDate;
+        private DateTimePicker dateTimePickerDate;
+        private Label lblStatus;
         private ComboBox cmbStatus;
-        private Button btnMark;
-        private DataGridView dgvAttendance;
+        private Button btnAdd;
+        private Button btnDelete;
+        private DataGridView dataGridViewAttendance;
     }
 }

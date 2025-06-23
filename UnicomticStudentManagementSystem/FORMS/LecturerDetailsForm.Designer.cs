@@ -28,117 +28,153 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblLectureId = new Label();
-            txtLectureId = new TextBox();
-            lblLectureName = new Label();
-            txtLectureName = new TextBox();
-            lblStuSubjectName = new Label();
-            txtStuSubjectName = new TextBox();
-            btnSave = new Button();
+            lblId = new Label();
+            txtId = new TextBox();
+            lblName = new Label();
+            label3 = new Label();
+            txtName = new TextBox();
+            txtEmail = new TextBox();
+            lblDepartment = new Label();
+            txtDepartment = new TextBox();
+            btnAdd = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
             dataGridViewLecturers = new DataGridView();
+            btnClear = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewLecturers).BeginInit();
             SuspendLayout();
             // 
-            // lblLectureId
+            // lblId
             // 
-            lblLectureId.AutoSize = true;
-            lblLectureId.Location = new Point(106, 24);
-            lblLectureId.Name = "lblLectureId";
-            lblLectureId.Size = new Size(63, 15);
-            lblLectureId.TabIndex = 0;
-            lblLectureId.Text = "Lecture ID:";
+            lblId.AutoSize = true;
+            lblId.Location = new Point(144, 22);
+            lblId.Name = "lblId";
+            lblId.Size = new Size(18, 15);
+            lblId.TabIndex = 0;
+            lblId.Text = "ID\n";
             // 
-            // txtLectureId
+            // txtId
             // 
-            txtLectureId.Location = new Point(224, 16);
-            txtLectureId.Name = "txtLectureId";
-            txtLectureId.Size = new Size(100, 23);
-            txtLectureId.TabIndex = 1;
+            txtId.Location = new Point(236, 19);
+            txtId.Name = "txtId";
+            txtId.Size = new Size(100, 23);
+            txtId.TabIndex = 1;
             // 
-            // lblLectureName
+            // lblName
             // 
-            lblLectureName.AutoSize = true;
-            lblLectureName.Location = new Point(471, 16);
-            lblLectureName.Name = "lblLectureName";
-            lblLectureName.Size = new Size(84, 15);
-            lblLectureName.TabIndex = 2;
-            lblLectureName.Text = "Lecture Name:";
+            lblName.AutoSize = true;
+            lblName.Location = new Point(138, 59);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(39, 15);
+            lblName.TabIndex = 2;
+            lblName.Text = "Name";
             // 
-            // txtLectureName
+            // label3
             // 
-            txtLectureName.Location = new Point(625, 12);
-            txtLectureName.Name = "txtLectureName";
-            txtLectureName.Size = new Size(100, 23);
-            txtLectureName.TabIndex = 3;
+            label3.AutoSize = true;
+            label3.Location = new Point(139, 96);
+            label3.Name = "label3";
+            label3.Size = new Size(36, 15);
+            label3.TabIndex = 3;
+            label3.Text = "Email";
             // 
-            // lblStuSubjectName
+            // txtName
             // 
-            lblStuSubjectName.AutoSize = true;
-            lblStuSubjectName.Location = new Point(336, 63);
-            lblStuSubjectName.Name = "lblStuSubjectName";
-            lblStuSubjectName.Size = new Size(84, 15);
-            lblStuSubjectName.TabIndex = 4;
-            lblStuSubjectName.Text = "Subject Name:";
+            txtName.Location = new Point(236, 51);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(100, 23);
+            txtName.TabIndex = 4;
             // 
-            // txtStuSubjectName
+            // txtEmail
             // 
-            txtStuSubjectName.Location = new Point(455, 60);
-            txtStuSubjectName.Name = "txtStuSubjectName";
-            txtStuSubjectName.Size = new Size(100, 23);
-            txtStuSubjectName.TabIndex = 5;
+            txtEmail.Location = new Point(236, 88);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(100, 23);
+            txtEmail.TabIndex = 5;
             // 
-            // btnSave
+            // lblDepartment
             // 
-            btnSave.Location = new Point(224, 129);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(75, 23);
-            btnSave.TabIndex = 6;
-            btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
+            lblDepartment.AutoSize = true;
+            lblDepartment.Location = new Point(139, 133);
+            lblDepartment.Name = "lblDepartment";
+            lblDepartment.Size = new Size(70, 15);
+            lblDepartment.TabIndex = 6;
+            lblDepartment.Text = "Department";
+            // 
+            // txtDepartment
+            // 
+            txtDepartment.Location = new Point(236, 130);
+            txtDepartment.Name = "txtDepartment";
+            txtDepartment.Size = new Size(100, 23);
+            txtDepartment.TabIndex = 7;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Location = new Point(87, 189);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(75, 23);
+            btnAdd.TabIndex = 8;
+            btnAdd.Text = "Add";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(412, 129);
+            btnUpdate.Location = new Point(216, 189);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
-            btnUpdate.TabIndex = 7;
+            btnUpdate.TabIndex = 9;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(615, 129);
+            btnDelete.Location = new Point(357, 189);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
-            btnDelete.TabIndex = 8;
+            btnDelete.TabIndex = 10;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // dataGridViewLecturers
             // 
             dataGridViewLecturers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewLecturers.Location = new Point(304, 186);
+            dataGridViewLecturers.Location = new Point(179, 258);
             dataGridViewLecturers.Name = "dataGridViewLecturers";
             dataGridViewLecturers.Size = new Size(240, 150);
-            dataGridViewLecturers.TabIndex = 9;
+            dataGridViewLecturers.TabIndex = 11;
+            dataGridViewLecturers.CellContentClick += dataGridViewLecturers_CellClick;
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(492, 191);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(75, 23);
+            btnClear.TabIndex = 12;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // LecturerDetailsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnClear);
             Controls.Add(dataGridViewLecturers);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
-            Controls.Add(btnSave);
-            Controls.Add(txtStuSubjectName);
-            Controls.Add(lblStuSubjectName);
-            Controls.Add(txtLectureName);
-            Controls.Add(lblLectureName);
-            Controls.Add(txtLectureId);
-            Controls.Add(lblLectureId);
+            Controls.Add(btnAdd);
+            Controls.Add(txtDepartment);
+            Controls.Add(lblDepartment);
+            Controls.Add(txtEmail);
+            Controls.Add(txtName);
+            Controls.Add(label3);
+            Controls.Add(lblName);
+            Controls.Add(txtId);
+            Controls.Add(lblId);
             Name = "LecturerDetailsForm";
             Text = "LecturerDetailsForm";
             Load += LecturerDetailsForm_Load;
@@ -149,15 +185,18 @@
 
         #endregion
 
-        private Label lblLectureId;
-        private TextBox txtLectureId;
-        private Label lblLectureName;
-        private TextBox txtLectureName;
-        private Label lblStuSubjectName;
-        private TextBox txtStuSubjectName;
-        private Button btnSave;
+        private Label lblId;
+        private TextBox txtId;
+        private Label lblName;
+        private Label label3;
+        private TextBox txtName;
+        private TextBox txtEmail;
+        private Label lblDepartment;
+        private TextBox txtDepartment;
+        private Button btnAdd;
         private Button btnUpdate;
         private Button btnDelete;
         private DataGridView dataGridViewLecturers;
+        private Button btnClear;
     }
 }

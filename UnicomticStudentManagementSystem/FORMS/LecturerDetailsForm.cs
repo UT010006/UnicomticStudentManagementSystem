@@ -8,12 +8,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dapper;
 using StudentManagementSystem.Controllers;
+
+
+
+
 
 namespace StudentManagementSystem.FORMS
 {
     public partial class LecturerDetailsForm : Form
+
+
     {
+        private LectureDetailsController controller = new LectureDetailsController();
         public LecturerDetailsForm()
         {
             InitializeComponent();
@@ -21,93 +29,88 @@ namespace StudentManagementSystem.FORMS
 
         private void LecturerDetailsForm_Load(object sender, EventArgs e)
         {
-            LoadLecturers();
+            LoadLecturerData();
         }
 
-        private void LoadLecturers()
+        private void LoadLecturerData()
         {
-            var lecturers = LecturerDetailsController.GetAll();
-            dataGridViewLecturers.DataSource = null;
+            var lecturers = controller.GetAllLecturers();
             dataGridViewLecturers.DataSource = lecturers;
         }
 
-        private void ClearFields()
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            txtLectureId.Text = "";
-            txtLectureName.Text = "";
-            txtStuSubjectName.Text = "";
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtLectureName.Text) || string.IsNullOrWhiteSpace(txtStuSubjectName.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                MessageBox.Show("Please fill in all fields.");
+                MessageBox.Show("Lecturer name is required.");
                 return;
             }
 
             var lecturer = new LecturerDetails
             {
-                LectureName = txtLectureName.Text.Trim(),
-                StuSubjectName = txtStuSubjectName.Text.Trim()
+                LecturerName = txtName.Text.Trim(),
+                Email = txtEmail.Text.Trim(),
+                Department = txtDepartment.Text.Trim()
             };
-
-            LecturerDetailsController.Insert(lecturer);
-            LoadLecturers();
-            ClearFields();
+            controller.AddLecturer(lecturer);
+            ClearForm();
+            LoadLecturerData();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(txtLectureId.Text, out int id))
-            {
-                var lecturer = new LecturerDetails
-                {
-                    LectureId = id,
-                    LectureName = txtLectureName.Text.Trim(),
-                    StuSubjectName = txtStuSubjectName.Text.Trim()
-                };
+            if (dataGridViewLecturers.CurrentRow == null) return;
 
-                LecturerDetailsController.Update(lecturer);
-                LoadLecturers();
-                ClearFields();
-            }
-            else
+            var lecturer = new LecturerDetails
             {
-                MessageBox.Show("Select a lecturer to update.");
-            }
+                LecturerId = Convert.ToInt32(txtId.Text),
+                LecturerName = txtName.Text.Trim(),
+                Email = txtEmail.Text.Trim(),
+                Department = txtDepartment.Text.Trim()
+            };
+            controller.UpdateLecturer(lecturer);
+            ClearForm();
+            LoadLecturerData();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(txtLectureId.Text, out int id))
-            {
-                var confirm = MessageBox.Show("Are you sure to delete?", "Confirm", MessageBoxButtons.YesNo);
-                if (confirm == DialogResult.Yes)
-                {
-                    LecturerDetailsController.Delete(id);
-                    LoadLecturers();
-                    ClearFields();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Select a lecturer to delete.");
-            }
+            if (dataGridViewLecturers.CurrentRow == null) return;
+
+            int id = Convert.ToInt32(txtId.Text);
+            controller.DeleteLecturer(id);
+            ClearForm();
+            LoadLecturerData();
         }
 
         private void dataGridViewLecturers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                txtLectureId.Text = dataGridViewLecturers.Rows[e.RowIndex].Cells["LectureId"].Value.ToString();
-                txtLectureName.Text = dataGridViewLecturers.Rows[e.RowIndex].Cells["LectureName"].Value.ToString();
-                txtStuSubjectName.Text = dataGridViewLecturers.Rows[e.RowIndex].Cells["StuSubjectName"].Value.ToString();
+                DataGridViewRow row = dataGridViewLecturers.Rows[e.RowIndex];
+                txtId.Text = row.Cells["LecturerId"].Value.ToString();
+                txtName.Text = row.Cells["LecturerName"].Value.ToString();
+                txtEmail.Text = row.Cells["Email"].Value.ToString();
+                txtDepartment.Text = row.Cells["Department"].Value.ToString();
             }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            txtId.Clear();
+            txtName.Clear();
+            txtEmail.Clear();
+            txtDepartment.Clear();
         }
     }
 }
 
         
+
     
 

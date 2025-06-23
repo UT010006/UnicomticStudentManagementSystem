@@ -1,4 +1,5 @@
-﻿using StudentManagementSystem.MODELS;
+﻿using Dapper;
+using StudentManagementSystem.MODELS;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -8,51 +9,35 @@ using System.Threading.Tasks;
 
 namespace StudentManagementSystem.Controllers
 {
-    internal class StuAttendanceController
+    public static  class StuAttendanceController
     {
-        public static void Insert(StuAttendance attendance)
-        {
-            using (var con = DatabaseManagement.GetConnection())
-            {
-                string query = "INSERT INTO StuAttendance (StuId, StuSubjectId, Date, Status) VALUES (@stuId, @subjectId, @date, @status)";
-                using (var cmd = new SQLiteCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@stuId", attendance.StuId);
-                    cmd.Parameters.AddWithValue("@subjectId", attendance.StuSubjectId);
-                    cmd.Parameters.AddWithValue("@date", attendance.Date);
-                    cmd.Parameters.AddWithValue("@status", attendance.Status);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
         public static List<StuAttendance> GetAll()
         {
-            var list = new List<StuAttendance>();
-
             using (var con = DatabaseManagement.GetConnection())
             {
                 string query = "SELECT * FROM StuAttendance";
-                using (var cmd = new SQLiteCommand(query, con))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        list.Add(new StuAttendance
-                        {
-                            StuId = Convert.ToInt32(reader["StuId"]),
-                            StuSubjectId = Convert.ToInt32(reader["StuSubjectId"]),
-                            Date = reader["Date"].ToString() ?? string.Empty,
-                            Status = reader["Status"].ToString() ?? string.Empty
-                        });
-                    }
-                }
+                return con.Query<StuAttendance>(query).ToList();
             }
+        }
 
-            return list;
+        public static bool Insert(StuAttendance attendance)
+        {
+            using (var con = DatabaseManagement.GetConnection())
+            {
+                string query = @"INSERT INTO StuAttendance (StuId, StuSubjectId, Date, Status)
+                                 VALUES (@StuId, @StuSubjectId, @Date, @Status)";
+                return con.Execute(query, attendance) > 0;
+            }
+        }
+
+        public static bool Delete(int stuId, int subjectId, string date)
+        {
+            using (var con = DatabaseManagement.GetConnection())
+            {
+                string query = @"DELETE FROM StuAttendance 
+                                 WHERE StuId = @StuId AND StuSubjectId = @StuSubjectId AND Date = @Date";
+                return con.Execute(query, new { StuId = stuId, StuSubjectId = subjectId, Date = date }) > 0;
+            }
         }
     }
 }
-
-    
-

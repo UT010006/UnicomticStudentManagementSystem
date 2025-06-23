@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace StudentManagementSystem
 {
-    internal class SubRoom
+    public class SubRoom
     {
         public int RoomId { get; set; }
         public string RoomName { get; set; } = string.Empty;
-        public string RoomType { get; set; } = string.Empty;
+        public string RoomType { get; set; } = string.Empty; // Lab or Hall
     }
 }

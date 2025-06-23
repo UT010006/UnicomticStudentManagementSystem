@@ -39,6 +39,7 @@
             btnTimetable = new Button();
             btnTopMarks = new Button();
             btnLogout = new Button();
+            btnSubRoom = new Button();
             SuspendLayout();
             // 
             // lblWelcome
@@ -122,9 +123,9 @@
             // 
             // btnTimetable
             // 
-            btnTimetable.Location = new Point(335, 228);
+            btnTimetable.Location = new Point(324, 228);
             btnTimetable.Name = "btnTimetable";
-            btnTimetable.Size = new Size(75, 23);
+            btnTimetable.Size = new Size(100, 23);
             btnTimetable.TabIndex = 8;
             btnTimetable.Text = "Timetable";
             btnTimetable.UseVisualStyleBackColor = true;
@@ -142,7 +143,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(367, 287);
+            btnLogout.Location = new Point(683, 368);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(75, 23);
             btnLogout.TabIndex = 10;
@@ -150,11 +151,21 @@
             btnLogout.UseVisualStyleBackColor = true;
             btnLogout.Click += btnLogout_Click;
             // 
+            // btnSubRoom
+            // 
+            btnSubRoom.Location = new Point(324, 288);
+            btnSubRoom.Name = "btnSubRoom";
+            btnSubRoom.Size = new Size(100, 23);
+            btnSubRoom.TabIndex = 11;
+            btnSubRoom.Text = "Sub Room";
+            btnSubRoom.UseVisualStyleBackColor = true;
+            // 
             // DashBoardForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnSubRoom);
             Controls.Add(btnLogout);
             Controls.Add(btnTopMarks);
             Controls.Add(btnTimetable);
@@ -186,5 +197,6 @@
         private Button btnTimetable;
         private Button btnTopMarks;
         private Button btnLogout;
+        private Button btnSubRoom;
     }
 }

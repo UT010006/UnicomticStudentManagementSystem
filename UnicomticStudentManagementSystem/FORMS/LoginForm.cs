@@ -1,9 +1,13 @@
-﻿using System;
+﻿using StudentManagementSystem.Controllers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using StudentManagementSystem.Controllers;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -16,26 +20,21 @@ namespace StudentManagementSystem.FORMS
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            // Load roles into the ComboBox
             cmbRole.Items.Clear();
             cmbRole.Items.Add("Admin");
             cmbRole.Items.Add("Lecturer");
             cmbRole.Items.Add("Student");
-
-            // Select first role by default
+            cmbRole.Items.Add("Staff"); // ✅ added staff
             cmbRole.SelectedIndex = 0;
-
-            // Hide error label on load
             lblError.Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
-            string? role = cmbRole.SelectedItem?.ToString(); // nullable string to avoid warning
+            string? role = cmbRole.SelectedItem?.ToString();
 
-            // Validate inputs
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(role))
             {
                 lblError.Text = "Please fill all fields.";
@@ -43,39 +42,33 @@ namespace StudentManagementSystem.FORMS
                 return;
             }
 
-            try
+            bool result = LoginController.Authenticate(username, password, role);
+            if (result)
             {
-                using (var con = DatabaseManagement.GetConnection())
-                {
-                    string query = "SELECT * FROM UserDetails WHERE UserName=@uname AND UserPassword=@pass AND UserRole=@role";
-                    using (var cmd = new SQLiteCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@uname", username);
-                        cmd.Parameters.AddWithValue("@pass", password);
-                        cmd.Parameters.AddWithValue("@role", role);
+                this.Hide();
+                DashBoardForm dash = new DashBoardForm(); // ✅ Adjust if role-specific dashboard
+                dash.Show();
+            }
+            else
+            {
+                lblError.Text = "Invalid credentials.";
+                lblError.Visible = true;
+            }
+        }
 
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                // Successful login
-                                this.Hide();
-                                DashBoardForm dash = new DashBoardForm(); // optionally pass user data
-                                dash.Show();
-                            }
-                            else
-                            {
-                                lblError.Text = "Invalid credentials.";
-                                lblError.Visible = true;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error connecting to database:\n" + ex.Message, "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private void btnSignIn_Click(object sender, EventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm();
+            registerForm.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
+
+        
+    
+

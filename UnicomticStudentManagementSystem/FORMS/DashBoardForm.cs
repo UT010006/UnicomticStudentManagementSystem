@@ -71,5 +71,10 @@ namespace StudentManagementSystem.FORMS
         {
             Controllers.DashBoardController.Logout(this);
         }
+        private void btnSubRoom_Click(object sender, EventArgs e)
+        {
+            Controllers.DashBoardController.OpenSubRoomForm();
+        }
+
     }
 }

@@ -125,6 +125,19 @@ namespace StudentManagementSystem.Controllers
                 MessageBox.Show("Failed to open TopMarksForm: " + ex.Message);
             }
         }
+        public static void OpenSubRoomForm()
+        {
+            try
+            {
+                var form = new SubRoomForm();
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to open SubRoomForm: " + ex.Message);
+            }
+        }
+
 
         public static void Logout(Form currentForm)
         {
