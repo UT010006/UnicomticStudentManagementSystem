@@ -21,10 +21,12 @@ namespace StudentManagementSystem.FORMS
 
         private void StuExamForm_Load(object sender, EventArgs e)
         {
+            dataGridView1.CellClick += dataGridView1_CellClick; // ✅ Event handler attached
+
             LoadData();
             txtExamId.ReadOnly = true;
 
-            // ✅ Disable edit features for Student and Lecturer
+            // ✅ Role-based restriction
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 btnAdd.Enabled = false;
@@ -100,7 +102,7 @@ namespace StudentManagementSystem.FORMS
             ClearForm();
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object? sender, DataGridViewCellEventArgs e) // ✅ CS8622-safe signature
         {
             if (e.RowIndex >= 0)
             {

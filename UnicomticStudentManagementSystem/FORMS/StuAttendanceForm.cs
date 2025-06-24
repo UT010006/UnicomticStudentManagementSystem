@@ -21,14 +21,12 @@ namespace StudentManagementSystem.FORMS
 
         private void StuAttendanceForm_Load(object sender, EventArgs e)
         {
-            cmbStatus.Items.Clear();
-            cmbStatus.Items.Add("Present");
-            cmbStatus.Items.Add("Absent");
-            cmbStatus.SelectedIndex = 0; // Default to "Present"
+            dataGridViewAttendance.CellClick += dataGridViewAttendance_CellClick;
 
+            cmbStatus.Items.AddRange(new[] { "Present", "Absent" });
+            cmbStatus.SelectedIndex = 0;
             LoadData();
 
-            // ✅ Disable edit controls if role is Student or Lecturer
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 btnAdd.Enabled = false;
@@ -50,12 +48,6 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
-            {
-                MessageBox.Show("Access denied. You are not allowed to add attendance.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             var attendance = new StuAttendance
             {
                 StuId = int.Parse(txtStuId.Text),
@@ -70,29 +62,27 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
-            {
-                MessageBox.Show("Access denied. You are not allowed to delete attendance.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             if (dataGridViewAttendance.SelectedRows.Count > 0)
             {
-                var selectedRow = dataGridViewAttendance.SelectedRows[0];
+                var row = dataGridViewAttendance.SelectedRows[0];
+                int stuId = Convert.ToInt32(row.Cells["StuId"].Value);
+                int subId = Convert.ToInt32(row.Cells["StuSubjectId"].Value);
+                string date = row.Cells["Date"].Value?.ToString() ?? "";
 
-                int stuId = selectedRow.Cells["StuId"].Value is int id ? id : 0;
-                int subjectId = selectedRow.Cells["StuSubjectId"].Value is int sid ? sid : 0;
-                string date = selectedRow.Cells["Date"].Value?.ToString() ?? "";
+                StuAttendanceController.Delete(stuId, subId, date);
+                LoadData();
+            }
+        }
 
-                if (!string.IsNullOrEmpty(date))
-                {
-                    StuAttendanceController.Delete(stuId, subjectId, date);
-                    LoadData();
-                }
-                else
-                {
-                    MessageBox.Show("Invalid date value selected.");
-                }
+        private void dataGridViewAttendance_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dataGridViewAttendance.Rows[e.RowIndex];
+                txtStuId.Text = row.Cells["StuId"].Value?.ToString() ?? "";
+                txtSubjectId.Text = row.Cells["StuSubjectId"].Value?.ToString() ?? "";
+                dateTimePickerDate.Value = DateTime.Parse(row.Cells["Date"].Value?.ToString() ?? DateTime.Now.ToString());
+                cmbStatus.SelectedItem = row.Cells["Status"].Value?.ToString();
             }
         }
     }

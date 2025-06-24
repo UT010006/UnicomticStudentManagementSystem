@@ -29,7 +29,21 @@ namespace StudentManagementSystem.FORMS
 
         private void LecturerDetailsForm_Load(object sender, EventArgs e)
         {
+            dataGridViewLecturers.CellClick += dataGridViewLecturers_CellClick; // ✅ Wire up the event
             LoadLecturerData();
+
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
+                btnClear.Enabled = false;
+
+                txtName.ReadOnly = true;
+                txtEmail.ReadOnly = true;
+                txtDepartment.ReadOnly = true;
+                dataGridViewLecturers.ReadOnly = true;
+            }
         }
 
         private void LoadLecturerData()
@@ -40,11 +54,7 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-            {
-                MessageBox.Show("Lecturer name is required.");
-                return;
-            }
+            if (IsAccessDenied()) return;
 
             var lecturer = new LecturerDetails
             {
@@ -52,14 +62,21 @@ namespace StudentManagementSystem.FORMS
                 Email = txtEmail.Text.Trim(),
                 Department = txtDepartment.Text.Trim()
             };
+
             controller.AddLecturer(lecturer);
-            ClearForm();
             LoadLecturerData();
+            ClearForm();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dataGridViewLecturers.CurrentRow == null) return;
+            if (IsAccessDenied()) return;
+
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Please select a lecturer to update.");
+                return;
+            }
 
             var lecturer = new LecturerDetails
             {
@@ -68,30 +85,37 @@ namespace StudentManagementSystem.FORMS
                 Email = txtEmail.Text.Trim(),
                 Department = txtDepartment.Text.Trim()
             };
+
             controller.UpdateLecturer(lecturer);
-            ClearForm();
             LoadLecturerData();
+            ClearForm();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridViewLecturers.CurrentRow == null) return;
+            if (IsAccessDenied()) return;
+
+            if (string.IsNullOrWhiteSpace(txtId.Text))
+            {
+                MessageBox.Show("Please select a lecturer to delete.");
+                return;
+            }
 
             int id = Convert.ToInt32(txtId.Text);
             controller.DeleteLecturer(id);
-            ClearForm();
             LoadLecturerData();
+            ClearForm();
         }
 
-        private void dataGridViewLecturers_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewLecturers_CellClick(object? sender, DataGridViewCellEventArgs e) // ✅ CS8622-safe
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dataGridViewLecturers.Rows[e.RowIndex];
-                txtId.Text = row.Cells["LecturerId"].Value.ToString();
-                txtName.Text = row.Cells["LecturerName"].Value.ToString();
-                txtEmail.Text = row.Cells["Email"].Value.ToString();
-                txtDepartment.Text = row.Cells["Department"].Value.ToString();
+                var row = dataGridViewLecturers.Rows[e.RowIndex];
+                txtId.Text = row.Cells["LecturerId"].Value?.ToString() ?? "";
+                txtName.Text = row.Cells["LecturerName"].Value?.ToString() ?? "";
+                txtEmail.Text = row.Cells["Email"].Value?.ToString() ?? "";
+                txtDepartment.Text = row.Cells["Department"].Value?.ToString() ?? "";
             }
         }
 
@@ -107,10 +131,15 @@ namespace StudentManagementSystem.FORMS
             txtEmail.Clear();
             txtDepartment.Clear();
         }
+
+        private bool IsAccessDenied()
+        {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to perform this action.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return true;
+            }
+            return false;
+        }
     }
 }
-
-        
-
-    
-

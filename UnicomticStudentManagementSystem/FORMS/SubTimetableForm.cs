@@ -27,7 +27,10 @@ namespace StudentManagementSystem.FORMS
             LoadRooms();
             LoadTimetables();
 
-            // ✅ Apply access control like StudentDetailsForm
+            // 🧠 Wire CellClick
+            dataGridViewSubTimetable.CellClick += dataGridViewSubTimetable_CellClick;
+
+            // ✅ Role-based restriction
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 btnAdd.Enabled = false;
@@ -42,24 +45,22 @@ namespace StudentManagementSystem.FORMS
 
         private void LoadSubjects()
         {
-            using (var con = DatabaseManagement.GetConnection())
-            {
-                var subjects = con.Query("SELECT StuSubjectId, StuSubjectName FROM StuSubject").ToList();
-                cmbSubject.DataSource = subjects;
-                cmbSubject.DisplayMember = "StuSubjectName";
-                cmbSubject.ValueMember = "StuSubjectId";
-            }
+            using var con = DatabaseManagement.GetConnection();
+            var subjects = con.Query("SELECT StuSubjectId, StuSubjectName FROM StuSubject").ToList();
+            cmbSubject.DataSource = subjects;
+            cmbSubject.DisplayMember = "StuSubjectName";
+            cmbSubject.ValueMember = "StuSubjectId";
+            cmbSubject.SelectedIndex = -1;
         }
 
         private void LoadRooms()
         {
-            using (var con = DatabaseManagement.GetConnection())
-            {
-                var rooms = con.Query("SELECT RoomId, RoomName FROM SubRoom").ToList();
-                cmbRoom.DataSource = rooms;
-                cmbRoom.DisplayMember = "RoomName";
-                cmbRoom.ValueMember = "RoomId";
-            }
+            using var con = DatabaseManagement.GetConnection();
+            var rooms = con.Query("SELECT RoomId, RoomName FROM SubRoom").ToList();
+            cmbRoom.DataSource = rooms;
+            cmbRoom.DisplayMember = "RoomName";
+            cmbRoom.ValueMember = "RoomId";
+            cmbRoom.SelectedIndex = -1;
         }
 
         private void LoadTimetables()
@@ -84,14 +85,14 @@ namespace StudentManagementSystem.FORMS
             var timetable = new SubTimetable
             {
                 StuSubjectId = Convert.ToInt32(cmbSubject.SelectedValue),
-                SubTimeslot = txtTimeslot.Text,
+                SubTimeslot = txtTimeslot.Text.Trim(),
                 RoomId = Convert.ToInt32(cmbRoom.SelectedValue)
             };
 
             if (SubTimetableController.Insert(timetable))
             {
                 MessageBox.Show("Timetable Added Successfully");
-                txtTimeslot.Clear();
+                ClearForm();
                 LoadTimetables();
             }
             else
@@ -108,23 +109,71 @@ namespace StudentManagementSystem.FORMS
                 return;
             }
 
-            if (dataGridViewSubTimetable.SelectedRows.Count > 0)
+            if (txtTimeslot.Tag == null || !int.TryParse(txtTimeslot.Tag.ToString(), out int id))
             {
-                int id = Convert.ToInt32(dataGridViewSubTimetable.SelectedRows[0].Cells["TimetableId"].Value);
-                if (SubTimetableController.Delete(id))
-                {
-                    MessageBox.Show("Deleted Successfully");
-                    LoadTimetables();
-                }
-                else
-                {
-                    MessageBox.Show("Delete failed.");
-                }
+                MessageBox.Show("Please select a timetable to delete.");
+                return;
+            }
+
+            if (SubTimetableController.Delete(id))
+            {
+                MessageBox.Show("Deleted Successfully");
+                ClearForm();
+                LoadTimetables();
             }
             else
             {
-                MessageBox.Show("Please select a timetable to delete.");
+                MessageBox.Show("Delete failed.");
             }
+        }
+
+        private void dataGridViewSubTimetable_CellClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dataGridViewSubTimetable.Rows[e.RowIndex];
+
+                txtTimeslot.Text = row.Cells["SubTimeslot"].Value?.ToString() ?? string.Empty;
+                txtTimeslot.Tag = row.Cells["TimetableId"].Value?.ToString() ?? string.Empty;
+
+                string subjectName = row.Cells["SubjectName"].Value?.ToString() ?? string.Empty;
+                for (int i = 0; i < cmbSubject.Items.Count; i++)
+                {
+                    var item = cmbSubject.Items[i];
+                    if (item != null)
+                    {
+                        var prop = TypeDescriptor.GetProperties(item)["StuSubjectName"];
+                        if (prop != null && prop.GetValue(item)?.ToString() == subjectName)
+                        {
+                            cmbSubject.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+
+                string roomName = row.Cells["RoomName"].Value?.ToString() ?? string.Empty;
+                for (int i = 0; i < cmbRoom.Items.Count; i++)
+                {
+                    var item = cmbRoom.Items[i];
+                    if (item != null)
+                    {
+                        var prop = TypeDescriptor.GetProperties(item)["RoomName"];
+                        if (prop != null && prop.GetValue(item)?.ToString() == roomName)
+                        {
+                            cmbRoom.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ClearForm()
+        {
+            txtTimeslot.Clear();
+            txtTimeslot.Tag = null;
+            cmbSubject.SelectedIndex = -1;
+            cmbRoom.SelectedIndex = -1;
         }
     }
 }

@@ -56,7 +56,7 @@
             // dgvTopMarks
             // 
             dgvTopMarks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTopMarks.Location = new Point(218, 184);
+            dgvTopMarks.Location = new Point(222, 178);
             dgvTopMarks.Name = "dgvTopMarks";
             dgvTopMarks.Size = new Size(240, 150);
             dgvTopMarks.TabIndex = 3;
@@ -74,7 +74,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.MistyRose;
             ClientSize = new Size(800, 450);
             Controls.Add(lblTopN);
             Controls.Add(dgvTopMarks);

@@ -23,12 +23,12 @@ namespace StudentManagementSystem.FORMS
         {
             LoadTopMarks();
 
-            // ✅ Role-based restrictions
+            // ✅ Role-based access restrictions
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 dgvTopMarks.ReadOnly = true;
-                btnLoadTop.Enabled = true;  // allow them to refresh top marks
-                numTopN.Enabled = false;    // optional: prevent them from changing number
+                btnLoadTop.Enabled = true;     // Allow refresh
+                numTopN.Enabled = false;       // Optional: restrict control
             }
         }
 
@@ -42,11 +42,13 @@ namespace StudentManagementSystem.FORMS
             dgvTopMarks.Rows.Clear();
             dgvTopMarks.Columns.Clear();
 
+            // ✅ Define display columns
             dgvTopMarks.Columns.Add("StuName", "Student Name");
             dgvTopMarks.Columns.Add("ExamName", "Exam Name");
             dgvTopMarks.Columns.Add("Score", "Score");
 
             int topN = (int)numTopN.Value;
+
             var topMarks = StuTopMarksController.GetTopMarks(topN);
 
             foreach (var item in topMarks)

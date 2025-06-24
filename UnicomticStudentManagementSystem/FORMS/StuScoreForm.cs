@@ -21,9 +21,10 @@ namespace StudentManagementSystem.FORMS
 
         private void StuScoreForm_Load(object sender, EventArgs e)
         {
+            dgvStuScore.CellClick += dgvStuScore_CellClick; // ✅ Event handler attached
             RefreshData();
 
-            // ✅ Apply role-based access restriction
+            // ✅ Apply role-based restriction
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 btnAdd.Enabled = false;
@@ -46,65 +47,90 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            if (!CanModify()) return;
+
+            if (!int.TryParse(txtStuId.Text, out int stuId) || !int.TryParse(txtExamId.Text, out int examId) || !int.TryParse(txtScore.Text, out int scoreVal))
             {
-                MessageBox.Show("Access denied. You cannot add scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter valid numeric values.");
                 return;
             }
 
             var score = new StuScore
             {
-                StuId = int.Parse(txtStuId.Text),
-                ExamId = int.Parse(txtExamId.Text),
-                Score = int.Parse(txtScore.Text)
+                StuId = stuId,
+                ExamId = examId,
+                Score = scoreVal
             };
 
             StuScoreController.Insert(score);
             RefreshData();
+            ClearForm();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            if (!CanModify()) return;
+
+            if (!int.TryParse(txtStuId.Text, out int stuId) || !int.TryParse(txtExamId.Text, out int examId) || !int.TryParse(txtScore.Text, out int scoreVal))
             {
-                MessageBox.Show("Access denied. You cannot update scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter valid numeric values.");
                 return;
             }
 
             var score = new StuScore
             {
-                StuId = int.Parse(txtStuId.Text),
-                ExamId = int.Parse(txtExamId.Text),
-                Score = int.Parse(txtScore.Text)
+                StuId = stuId,
+                ExamId = examId,
+                Score = scoreVal
             };
 
             StuScoreController.Update(score);
             RefreshData();
+            ClearForm();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            if (!CanModify()) return;
+
+            if (!int.TryParse(txtStuId.Text, out int stuId) || !int.TryParse(txtExamId.Text, out int examId))
             {
-                MessageBox.Show("Access denied. You cannot delete scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please enter valid Student ID and Exam ID.");
                 return;
             }
 
-            int stuId = int.Parse(txtStuId.Text);
-            int examId = int.Parse(txtExamId.Text);
-
             StuScoreController.Delete(stuId, examId);
             RefreshData();
+            ClearForm();
         }
 
-        private void dgvStuScore_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvStuScore_CellClick(object? sender, DataGridViewCellEventArgs e) // ✅ Safe signature
         {
             if (e.RowIndex >= 0)
             {
-                txtStuId.Text = dgvStuScore.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
-                txtExamId.Text = dgvStuScore.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
-                txtScore.Text = dgvStuScore.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
+                var row = dgvStuScore.Rows[e.RowIndex];
+
+                txtStuId.Text = row.Cells[0].Value?.ToString() ?? "";
+                txtExamId.Text = row.Cells[1].Value?.ToString() ?? "";
+                txtScore.Text = row.Cells[2].Value?.ToString() ?? "";
             }
+        }
+
+        private void ClearForm()
+        {
+            txtStuId.Clear();
+            txtExamId.Clear();
+            txtScore.Clear();
+        }
+
+        private bool CanModify()
+        {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to perform this action.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
         }
     }
 }

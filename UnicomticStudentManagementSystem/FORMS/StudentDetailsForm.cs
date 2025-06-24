@@ -17,10 +17,11 @@ namespace StudentManagementSystem.FORMS
 
         private void StudentDetailsForm_Load(object sender, EventArgs e)
         {
+            dgvStudents.CellClick += dgvStudents_CellClick;
+
             LoadCourses();
             LoadStudents();
 
-            // ✅ Apply role-based restrictions
             if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
                 btnAdd.Enabled = false;
@@ -65,6 +66,10 @@ namespace StudentManagementSystem.FORMS
             dgvStudents.Rows.Clear();
             dgvStudents.Columns.Clear();
 
+            dgvStudents.Columns.Add("StuId", "ID");
+            dgvStudents.Columns.Add("StuName", "Name");
+            dgvStudents.Columns.Add("StuCourseName", "Course");
+
             using (var con = DatabaseManagement.GetConnection())
             {
                 string query = @"SELECT s.StuId, s.StuName, c.StuCourseName 
@@ -74,10 +79,6 @@ namespace StudentManagementSystem.FORMS
                 using (var cmd = new SQLiteCommand(query, con))
                 using (var reader = cmd.ExecuteReader())
                 {
-                    dgvStudents.Columns.Add("StuId", "ID");
-                    dgvStudents.Columns.Add("StuName", "Name");
-                    dgvStudents.Columns.Add("StuCourseName", "Course");
-
                     while (reader.Read())
                     {
                         dgvStudents.Rows.Add(
@@ -92,11 +93,7 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
-            {
-                MessageBox.Show("Access denied. You are not allowed to add students.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!IsAdmin()) return;
 
             if (string.IsNullOrWhiteSpace(txtStuName.Text) || cmbCourse.SelectedItem is not ComboBoxItem selectedCourse)
             {
@@ -119,7 +116,8 @@ namespace StudentManagementSystem.FORMS
             ClearForm();
         }
 
-        private void dgvStudents_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvStudents_CellClick(object? sender, DataGridViewCellEventArgs e)
+
         {
             if (e.RowIndex >= 0)
             {
@@ -149,11 +147,7 @@ namespace StudentManagementSystem.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
-            {
-                MessageBox.Show("Access denied. You are not allowed to update student records.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!IsAdmin()) return;
 
             if (txtStuName.Tag is not int stuId)
             {
@@ -185,11 +179,7 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
-            {
-                MessageBox.Show("Access denied. You are not allowed to delete student records.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!IsAdmin()) return;
 
             if (txtStuName.Tag is not int stuId)
             {
@@ -223,13 +213,22 @@ namespace StudentManagementSystem.FORMS
                 cmbCourse.SelectedIndex = 0;
             txtStuName.Tag = null;
         }
+
+        private bool IsAdmin()
+        {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to perform this action.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
     }
 
     public class ComboBoxItem
     {
         public string Text { get; set; } = string.Empty;
         public string Value { get; set; } = string.Empty;
-
         public override string ToString() => Text;
     }
 }

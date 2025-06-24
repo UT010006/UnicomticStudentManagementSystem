@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            lblRoomName = new Label();
+            label1 = new Label();
             txtRoomName = new TextBox();
-            lblRoomType = new Label();
+            label2 = new Label();
             cmbRoomType = new ComboBox();
             btnAdd = new Button();
             btnUpdate = new Button();
@@ -39,92 +39,88 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewRooms).BeginInit();
             SuspendLayout();
             // 
-            // lblRoomName
+            // label1
             // 
-            lblRoomName.AutoSize = true;
-            lblRoomName.Location = new Point(116, 28);
-            lblRoomName.Name = "lblRoomName";
-            lblRoomName.Size = new Size(77, 15);
-            lblRoomName.TabIndex = 0;
-            lblRoomName.Text = "Room Name:";
+            label1.AutoSize = true;
+            label1.Location = new Point(182, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(77, 15);
+            label1.TabIndex = 0;
+            label1.Text = "Room Name:";
             // 
             // txtRoomName
             // 
-            txtRoomName.Location = new Point(218, 20);
+            txtRoomName.Location = new Point(289, 6);
             txtRoomName.Name = "txtRoomName";
-            txtRoomName.Size = new Size(123, 23);
+            txtRoomName.Size = new Size(100, 23);
             txtRoomName.TabIndex = 1;
             // 
-            // lblRoomType
+            // label2
             // 
-            lblRoomType.AutoSize = true;
-            lblRoomType.Location = new Point(127, 58);
-            lblRoomType.Name = "lblRoomType";
-            lblRoomType.Size = new Size(69, 15);
-            lblRoomType.TabIndex = 2;
-            lblRoomType.Text = "Room Type:";
+            label2.AutoSize = true;
+            label2.Location = new Point(190, 47);
+            label2.Name = "label2";
+            label2.Size = new Size(69, 15);
+            label2.TabIndex = 2;
+            label2.Text = "Room Type:";
             // 
             // cmbRoomType
             // 
             cmbRoomType.FormattingEnabled = true;
-            cmbRoomType.Location = new Point(220, 50);
+            cmbRoomType.Location = new Point(289, 44);
             cmbRoomType.Name = "cmbRoomType";
-            cmbRoomType.Size = new Size(121, 23);
+            cmbRoomType.Size = new Size(100, 23);
             cmbRoomType.TabIndex = 3;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(116, 114);
+            btnAdd.Location = new Point(159, 108);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
-            btnUpdate.Location = new Point(266, 114);
+            btnUpdate.Location = new Point(289, 108);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
-            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(425, 114);
+            btnDelete.Location = new Point(413, 108);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
             // 
             // dataGridViewRooms
             // 
             dataGridViewRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewRooms.Location = new Point(88, 181);
+            dataGridViewRooms.Location = new Point(248, 204);
             dataGridViewRooms.Name = "dataGridViewRooms";
-            dataGridViewRooms.Size = new Size(466, 150);
+            dataGridViewRooms.Size = new Size(240, 150);
             dataGridViewRooms.TabIndex = 7;
-            dataGridViewRooms.Click += dataGridViewRooms_SelectionChanged;
             // 
             // SubRoomForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.MistyRose;
             ClientSize = new Size(800, 450);
             Controls.Add(dataGridViewRooms);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnAdd);
             Controls.Add(cmbRoomType);
-            Controls.Add(lblRoomType);
+            Controls.Add(label2);
             Controls.Add(txtRoomName);
-            Controls.Add(lblRoomName);
+            Controls.Add(label1);
             Name = "SubRoomForm";
             Text = "SubRoomForm";
             Load += SubRoomForm_Load;
@@ -135,9 +131,9 @@
 
         #endregion
 
-        private Label lblRoomName;
+        private Label label1;
         private TextBox txtRoomName;
-        private Label lblRoomType;
+        private Label label2;
         private ComboBox cmbRoomType;
         private Button btnAdd;
         private Button btnUpdate;

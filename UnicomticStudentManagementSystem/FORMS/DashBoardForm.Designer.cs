@@ -45,7 +45,7 @@
             // lblWelcome
             // 
             lblWelcome.AutoSize = true;
-            lblWelcome.Location = new Point(361, 22);
+            lblWelcome.Location = new Point(308, 20);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(131, 15);
             lblWelcome.TabIndex = 0;
@@ -179,6 +179,8 @@
             Controls.Add(btnLecturers);
             Controls.Add(btnStudents);
             Controls.Add(lblWelcome);
+            ForeColor = SystemColors.InactiveCaptionText;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "DashBoardForm";
             Text = "DashBoardForm";
             Load += DashBoardForm_Load;
