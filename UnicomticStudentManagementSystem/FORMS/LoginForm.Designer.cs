@@ -122,18 +122,20 @@
             // 
             // btnExit
             // 
+            btnExit.BackColor = SystemColors.MenuHighlight;
             btnExit.Location = new Point(356, 335);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(75, 23);
             btnExit.TabIndex = 9;
             btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = true;
+            btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += btnExit_Click;
             // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.GradientActiveCaption;
             ClientSize = new Size(800, 450);
             Controls.Add(btnExit);
             Controls.Add(lblError);

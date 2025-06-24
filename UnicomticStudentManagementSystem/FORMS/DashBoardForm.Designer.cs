@@ -47,9 +47,9 @@
             lblWelcome.AutoSize = true;
             lblWelcome.Location = new Point(361, 22);
             lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(114, 15);
+            lblWelcome.Size = new Size(131, 15);
             lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Welcome:[UserRole]";
+            lblWelcome.Text = "Welcome to Dashboard";
             // 
             // btnStudents
             // 
@@ -143,12 +143,13 @@
             // 
             // btnLogout
             // 
+            btnLogout.BackColor = SystemColors.GrayText;
             btnLogout.Location = new Point(683, 368);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(75, 23);
             btnLogout.TabIndex = 10;
             btnLogout.Text = "Logout";
-            btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
             // 
             // btnSubRoom
@@ -164,6 +165,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.HotTrack;
             ClientSize = new Size(800, 450);
             Controls.Add(btnSubRoom);
             Controls.Add(btnLogout);

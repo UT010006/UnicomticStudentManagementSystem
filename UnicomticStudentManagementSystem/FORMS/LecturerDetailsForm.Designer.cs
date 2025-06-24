@@ -161,6 +161,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(800, 450);
             Controls.Add(btnClear);
             Controls.Add(dataGridViewLecturers);
@@ -175,6 +176,7 @@
             Controls.Add(lblName);
             Controls.Add(txtId);
             Controls.Add(lblId);
+            ForeColor = SystemColors.ControlText;
             Name = "LecturerDetailsForm";
             Text = "LecturerDetailsForm";
             Load += LecturerDetailsForm_Load;
