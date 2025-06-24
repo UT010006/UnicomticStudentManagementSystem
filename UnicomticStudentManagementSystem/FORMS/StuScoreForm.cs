@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -21,6 +22,20 @@ namespace StudentManagementSystem.FORMS
         private void StuScoreForm_Load(object sender, EventArgs e)
         {
             RefreshData();
+
+            // ✅ Apply role-based access restriction
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
+
+                txtStuId.ReadOnly = true;
+                txtExamId.ReadOnly = true;
+                txtScore.ReadOnly = true;
+
+                dgvStuScore.ReadOnly = true;
+            }
         }
 
         private void RefreshData()
@@ -31,6 +46,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You cannot add scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var score = new StuScore
             {
                 StuId = int.Parse(txtStuId.Text),
@@ -44,6 +65,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You cannot update scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var score = new StuScore
             {
                 StuId = int.Parse(txtStuId.Text),
@@ -57,6 +84,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You cannot delete scores.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             int stuId = int.Parse(txtStuId.Text);
             int examId = int.Parse(txtExamId.Text);
 
@@ -68,14 +101,10 @@ namespace StudentManagementSystem.FORMS
         {
             if (e.RowIndex >= 0)
             {
-                txtStuId.Text = dgvStuScore.Rows[e.RowIndex].Cells[0].Value.ToString();
-                txtExamId.Text = dgvStuScore.Rows[e.RowIndex].Cells[1].Value.ToString();
-                txtScore.Text = dgvStuScore.Rows[e.RowIndex].Cells[2].Value.ToString();
+                txtStuId.Text = dgvStuScore.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+                txtExamId.Text = dgvStuScore.Rows[e.RowIndex].Cells[1].Value?.ToString() ?? "";
+                txtScore.Text = dgvStuScore.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
             }
         }
     }
 }
-
-        
-    
-

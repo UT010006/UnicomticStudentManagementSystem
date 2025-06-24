@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -24,7 +25,7 @@ namespace StudentManagementSystem.FORMS
             cmbRole.Items.Add("Admin");
             cmbRole.Items.Add("Lecturer");
             cmbRole.Items.Add("Student");
-            cmbRole.Items.Add("Staff"); // ✅ added staff
+            cmbRole.Items.Add("Staff"); 
             cmbRole.SelectedIndex = 0;
             lblError.Visible = false;
         }
@@ -45,6 +46,7 @@ namespace StudentManagementSystem.FORMS
             bool result = LoginController.Authenticate(username, password, role);
             if (result)
             {
+                SessionManager.LoggedInRole = role;
                 this.Hide();
                 DashBoardForm dash = new DashBoardForm(); // ✅ Adjust if role-specific dashboard
                 dash.Show();

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -26,13 +27,25 @@ namespace StudentManagementSystem.FORMS
         {
             LoadCourses();
             LoadSubjects();
+
+            // ✅ Role-Based Access
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
+
+                txtSubjectName.ReadOnly = true;
+                cmbCourse.Enabled = false;
+                dgvSubjects.ReadOnly = true;
+            }
         }
 
         private void LoadCourses()
         {
             cmbCourse.Items.Clear();
 
-            var courses = StuCourseController.GetAll(); // List<StuCourse>
+            var courses = StuCourseController.GetAll();
             foreach (var course in courses)
             {
                 cmbCourse.Items.Add(new KeyValuePair<int, string>(course.StuCourseId, course.StuCourseName));
@@ -64,13 +77,23 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You cannot add subjects.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtSubjectName.Text) || cmbCourse.SelectedItem == null)
             {
                 MessageBox.Show("Please fill all fields.");
                 return;
             }
 
-            var selectedCourse = (KeyValuePair<int, string>)cmbCourse.SelectedItem;
+            if (cmbCourse.SelectedItem is not KeyValuePair<int, string> selectedCourse)
+            {
+                MessageBox.Show("Invalid course selected.");
+                return;
+            }
 
             var subject = new StuSubject
             {
@@ -96,7 +119,7 @@ namespace StudentManagementSystem.FORMS
 
                 for (int i = 0; i < cmbCourse.Items.Count; i++)
                 {
-                    if (((KeyValuePair<int, string>)cmbCourse.Items[i]).Value == courseName)
+                    if (cmbCourse.Items[i] is KeyValuePair<int, string> coursePair && coursePair.Value == courseName)
                     {
                         cmbCourse.SelectedIndex = i;
                         break;
@@ -107,19 +130,23 @@ namespace StudentManagementSystem.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (txtSubjectName.Tag == null)
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
-                MessageBox.Show("Please select a subject to update.");
+                MessageBox.Show("Access denied. You cannot update subjects.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!int.TryParse(txtSubjectName.Tag.ToString(), out int subjectId))
+            if (txtSubjectName.Tag == null || !int.TryParse(txtSubjectName.Tag.ToString(), out int subjectId))
             {
-                MessageBox.Show("Invalid subject ID.");
+                MessageBox.Show("Invalid or missing subject ID.");
                 return;
             }
 
-            var selectedCourse = (KeyValuePair<int, string>)cmbCourse.SelectedItem;
+            if (cmbCourse.SelectedItem is not KeyValuePair<int, string> selectedCourse)
+            {
+                MessageBox.Show("Please select a valid course.");
+                return;
+            }
 
             var subject = new StuSubject
             {
@@ -135,13 +162,13 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (txtSubjectName.Tag == null)
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
             {
-                MessageBox.Show("Please select a subject to delete.");
+                MessageBox.Show("Access denied. You cannot delete subjects.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (!int.TryParse(txtSubjectName.Tag.ToString(), out int id))
+            if (txtSubjectName.Tag == null || !int.TryParse(txtSubjectName.Tag.ToString(), out int id))
             {
                 MessageBox.Show("Invalid subject ID.");
                 return;

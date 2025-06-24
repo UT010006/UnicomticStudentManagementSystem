@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -25,6 +26,18 @@ namespace StudentManagementSystem.FORMS
             LoadSubjects();
             LoadRooms();
             LoadTimetables();
+
+            // ✅ Apply access control like StudentDetailsForm
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+
+                cmbSubject.Enabled = false;
+                cmbRoom.Enabled = false;
+                txtTimeslot.ReadOnly = true;
+                dataGridViewSubTimetable.ReadOnly = true;
+            }
         }
 
         private void LoadSubjects()
@@ -56,6 +69,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to add timetables.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (cmbSubject.SelectedIndex == -1 || cmbRoom.SelectedIndex == -1 || string.IsNullOrWhiteSpace(txtTimeslot.Text))
             {
                 MessageBox.Show("Please fill all fields!");
@@ -83,6 +102,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to delete timetables.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (dataGridViewSubTimetable.SelectedRows.Count > 0)
             {
                 int id = Convert.ToInt32(dataGridViewSubTimetable.SelectedRows[0].Cells["TimetableId"].Value);
@@ -95,6 +120,10 @@ namespace StudentManagementSystem.FORMS
                 {
                     MessageBox.Show("Delete failed.");
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a timetable to delete.");
             }
         }
     }

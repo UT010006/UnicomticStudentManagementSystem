@@ -1,4 +1,5 @@
 ﻿using StudentManagementSystem.Controllers;
+using StudentManagementSystem.MODELS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,19 @@ namespace StudentManagementSystem.FORMS
         {
             LoadData();
             cmbRoomType.Items.AddRange(new string[] { "Lab", "Hall" });
+
+            // ✅ Match StudentDetailsForm pattern
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
+                
+
+                txtRoomName.ReadOnly = true;
+                cmbRoomType.Enabled = false;
+                dataGridViewRooms.ReadOnly = true;
+            }
         }
 
         private void LoadData()
@@ -31,6 +45,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to add rooms.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtRoomName.Text) || cmbRoomType.SelectedItem == null)
             {
                 MessageBox.Show("Please enter room name and select room type.");
@@ -50,8 +70,17 @@ namespace StudentManagementSystem.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (dataGridViewRooms.SelectedRows.Count == 0)
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to update rooms.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            if (dataGridViewRooms.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a room to update.");
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(txtRoomName.Text) || cmbRoomType.SelectedItem == null)
             {
@@ -76,8 +105,17 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dataGridViewRooms.SelectedRows.Count == 0)
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to delete rooms.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            if (dataGridViewRooms.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a room to delete.");
+                return;
+            }
 
             var selectedRow = dataGridViewRooms.SelectedRows[0];
             if (selectedRow.Cells["RoomId"].Value == null) return;
@@ -102,10 +140,12 @@ namespace StudentManagementSystem.FORMS
                 cmbRoomType.SelectedItem = row.Cells["RoomType"].Value.ToString();
         }
 
+        
+
         private void ClearFields()
         {
             txtRoomName.Clear();
-            cmbRoomType.SelectedIndex = -1;
+      
         }
     }
 }

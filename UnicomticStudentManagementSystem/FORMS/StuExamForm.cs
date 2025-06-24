@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -22,6 +23,18 @@ namespace StudentManagementSystem.FORMS
         {
             LoadData();
             txtExamId.ReadOnly = true;
+
+            // ✅ Disable edit features for Student and Lecturer
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnDelete.Enabled = false;
+
+                txtExamName.ReadOnly = true;
+                txtSubjectId.ReadOnly = true;
+                dataGridView1.ReadOnly = true;
+            }
         }
 
         private void LoadData()
@@ -32,6 +45,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to add exams.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var exam = new StuExam
             {
                 ExamName = txtExamName.Text.Trim(),
@@ -45,6 +64,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to update exams.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtExamId.Text)) return;
 
             var exam = new StuExam
@@ -61,6 +86,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to delete exams.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(txtExamId.Text)) return;
 
             int examId = int.Parse(txtExamId.Text);
@@ -74,9 +105,9 @@ namespace StudentManagementSystem.FORMS
             if (e.RowIndex >= 0)
             {
                 var row = dataGridView1.Rows[e.RowIndex];
-                txtExamId.Text = row.Cells["ExamId"].Value.ToString();
-                txtExamName.Text = row.Cells["ExamName"].Value.ToString();
-                txtSubjectId.Text = row.Cells["StuSubjectId"].Value.ToString();
+                txtExamId.Text = row.Cells["ExamId"].Value?.ToString() ?? "";
+                txtExamName.Text = row.Cells["ExamName"].Value?.ToString() ?? "";
+                txtSubjectId.Text = row.Cells["StuSubjectId"].Value?.ToString() ?? "";
             }
         }
 
@@ -88,7 +119,3 @@ namespace StudentManagementSystem.FORMS
         }
     }
 }
-
-        
-    
-

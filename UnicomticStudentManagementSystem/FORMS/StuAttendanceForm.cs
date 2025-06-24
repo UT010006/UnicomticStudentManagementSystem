@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using StudentManagementSystem.MODELS;
 
 namespace StudentManagementSystem.FORMS
 {
@@ -26,6 +27,20 @@ namespace StudentManagementSystem.FORMS
             cmbStatus.SelectedIndex = 0; // Default to "Present"
 
             LoadData();
+
+            // ✅ Disable edit controls if role is Student or Lecturer
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                btnAdd.Enabled = false;
+                btnDelete.Enabled = false;
+
+                txtStuId.ReadOnly = true;
+                txtSubjectId.ReadOnly = true;
+                cmbStatus.Enabled = false;
+                dateTimePickerDate.Enabled = false;
+
+                dataGridViewAttendance.ReadOnly = true;
+            }
         }
 
         private void LoadData()
@@ -35,6 +50,12 @@ namespace StudentManagementSystem.FORMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to add attendance.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             var attendance = new StuAttendance
             {
                 StuId = int.Parse(txtStuId.Text),
@@ -49,11 +70,16 @@ namespace StudentManagementSystem.FORMS
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                MessageBox.Show("Access denied. You are not allowed to delete attendance.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (dataGridViewAttendance.SelectedRows.Count > 0)
             {
                 var selectedRow = dataGridViewAttendance.SelectedRows[0];
 
-                // Safely parse values
                 int stuId = selectedRow.Cells["StuId"].Value is int id ? id : 0;
                 int subjectId = selectedRow.Cells["StuSubjectId"].Value is int sid ? sid : 0;
                 string date = selectedRow.Cells["Date"].Value?.ToString() ?? "";
@@ -68,14 +94,6 @@ namespace StudentManagementSystem.FORMS
                     MessageBox.Show("Invalid date value selected.");
                 }
             }
-
-
         }
     }
 }
-    
-
-
-
-
-

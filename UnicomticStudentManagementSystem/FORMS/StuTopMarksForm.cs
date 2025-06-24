@@ -1,4 +1,5 @@
 ﻿using StudentManagementSystem.Controllers;
+using StudentManagementSystem.MODELS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,14 @@ namespace StudentManagementSystem.FORMS
         private void StuTopMarksForm_Load(object sender, EventArgs e)
         {
             LoadTopMarks();
+
+            // ✅ Role-based restrictions
+            if (SessionManager.LoggedInRole == "Student" || SessionManager.LoggedInRole == "Lecturer")
+            {
+                dgvTopMarks.ReadOnly = true;
+                btnLoadTop.Enabled = true;  // allow them to refresh top marks
+                numTopN.Enabled = false;    // optional: prevent them from changing number
+            }
         }
 
         private void btnLoadTop_Click(object sender, EventArgs e)
@@ -47,7 +56,3 @@ namespace StudentManagementSystem.FORMS
         }
     }
 }
-
-        
-    
-
