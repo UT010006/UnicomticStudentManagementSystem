@@ -38,12 +38,13 @@
             // 
             // btnLoadTop
             // 
+            btnLoadTop.BackColor = Color.Bisque;
             btnLoadTop.Location = new Point(154, 93);
             btnLoadTop.Name = "btnLoadTop";
             btnLoadTop.Size = new Size(75, 23);
             btnLoadTop.TabIndex = 1;
             btnLoadTop.Text = "Load Top N Marks\n";
-            btnLoadTop.UseVisualStyleBackColor = true;
+            btnLoadTop.UseVisualStyleBackColor = false;
             // 
             // numTopN
             // 
@@ -55,6 +56,7 @@
             // 
             // dgvTopMarks
             // 
+            dgvTopMarks.BackgroundColor = Color.DeepSkyBlue;
             dgvTopMarks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTopMarks.Location = new Point(222, 178);
             dgvTopMarks.Name = "dgvTopMarks";

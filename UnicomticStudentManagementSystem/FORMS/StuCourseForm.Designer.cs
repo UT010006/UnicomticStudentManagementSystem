@@ -56,6 +56,7 @@
             // 
             // dgvCourses
             // 
+            dgvCourses.BackgroundColor = Color.DeepSkyBlue;
             dgvCourses.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCourses.Location = new Point(256, 197);
             dgvCourses.Name = "dgvCourses";
@@ -64,49 +65,53 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = Color.Bisque;
             btnAdd.Location = new Point(136, 115);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 3;
             btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
+            btnUpdate.BackColor = Color.Bisque;
             btnUpdate.Location = new Point(259, 115);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 4;
             btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = Color.Bisque;
             btnDelete.Location = new Point(374, 115);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 5;
             btnDelete.Text = "Delete\n";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
+            btnClear.BackColor = Color.Bisque;
             btnClear.Location = new Point(494, 115);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(75, 23);
             btnClear.TabIndex = 6;
             btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = true;
+            btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
             // StuCourseForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.Cyan;
             ClientSize = new Size(800, 450);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);

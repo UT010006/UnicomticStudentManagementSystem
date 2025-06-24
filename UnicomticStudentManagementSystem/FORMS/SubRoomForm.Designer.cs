@@ -74,33 +74,37 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = Color.Bisque;
             btnAdd.Location = new Point(159, 108);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             // 
             // btnUpdate
             // 
+            btnUpdate.BackColor = Color.Bisque;
             btnUpdate.Location = new Point(289, 108);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = Color.Bisque;
             btnDelete.Location = new Point(413, 108);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             // 
             // dataGridViewRooms
             // 
+            dataGridViewRooms.BackgroundColor = Color.DeepSkyBlue;
             dataGridViewRooms.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewRooms.Location = new Point(248, 204);
             dataGridViewRooms.Name = "dataGridViewRooms";
@@ -111,7 +115,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.MistyRose;
+            BackColor = Color.Cyan;
             ClientSize = new Size(800, 450);
             Controls.Add(dataGridViewRooms);
             Controls.Add(btnDelete);

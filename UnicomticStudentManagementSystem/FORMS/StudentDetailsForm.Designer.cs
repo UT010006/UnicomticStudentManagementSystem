@@ -75,46 +75,51 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = Color.Bisque;
             btnAdd.Location = new Point(176, 134);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(70, 24);
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Add Student\n";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
+            btnUpdate.BackColor = Color.Bisque;
             btnUpdate.Location = new Point(345, 135);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Update Student\n";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = Color.Bisque;
             btnDelete.Location = new Point(501, 136);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Delete Student\n";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
+            btnClear.BackColor = Color.Bisque;
             btnClear.Location = new Point(654, 140);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(75, 23);
             btnClear.TabIndex = 7;
             btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = true;
+            btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
             // dgvStudents
             // 
+            dgvStudents.BackgroundColor = Color.DeepSkyBlue;
             dgvStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStudents.Location = new Point(308, 189);
             dgvStudents.Name = "dgvStudents";
@@ -127,7 +132,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.Cyan;
             ClientSize = new Size(800, 450);
             Controls.Add(dgvStudents);
             Controls.Add(btnClear);

@@ -91,40 +91,44 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = Color.Bisque;
             btnAdd.Location = new Point(140, 144);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 6;
             btnAdd.Text = "Add";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
+            btnUpdate.BackColor = Color.Bisque;
             btnUpdate.Location = new Point(275, 144);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 7;
             btnUpdate.Text = "Update";
-            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = Color.Bisque;
             btnDelete.Location = new Point(411, 144);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 8;
             btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // dgvStuScore
             // 
+            dgvStuScore.BackgroundColor = Color.DeepSkyBlue;
             dgvStuScore.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStuScore.Location = new Point(217, 194);
             dgvStuScore.Name = "dgvStuScore";
-            dgvStuScore.Size = new Size(240, 150);
+            dgvStuScore.Size = new Size(388, 150);
             dgvStuScore.TabIndex = 9;
             dgvStuScore.CellContentClick += dgvStuScore_CellClick;
             dgvStuScore.Click += StuScoreForm_Load;
@@ -133,7 +137,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.Cyan;
             ClientSize = new Size(800, 450);
             Controls.Add(dgvStuScore);
             Controls.Add(btnDelete);

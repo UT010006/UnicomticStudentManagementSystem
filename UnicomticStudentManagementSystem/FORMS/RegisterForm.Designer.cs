@@ -91,22 +91,25 @@
             // 
             // btnRegister
             // 
-            btnRegister.Location = new Point(317, 256);
+            btnRegister.BackColor = Color.Fuchsia;
+            btnRegister.Location = new Point(178, 265);
             btnRegister.Name = "btnRegister";
-            btnRegister.Size = new Size(75, 23);
+            btnRegister.Size = new Size(323, 61);
             btnRegister.TabIndex = 6;
             btnRegister.Text = "Register";
-            btnRegister.UseVisualStyleBackColor = true;
+            btnRegister.UseVisualStyleBackColor = false;
             btnRegister.Click += btnRegister_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(317, 307);
+            btnClose.BackColor = Color.IndianRed;
+            btnClose.BackgroundImageLayout = ImageLayout.None;
+            btnClose.Location = new Point(604, 297);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(75, 23);
+            btnClose.Size = new Size(145, 75);
             btnClose.TabIndex = 7;
             btnClose.Text = "Close\n";
-            btnClose.UseVisualStyleBackColor = true;
+            btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
             // lblMessage
@@ -121,7 +124,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.Aquamarine;
             ClientSize = new Size(800, 450);
             Controls.Add(lblMessage);
             Controls.Add(btnClose);

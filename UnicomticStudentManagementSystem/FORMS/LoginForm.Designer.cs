@@ -92,22 +92,24 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(353, 207);
+            btnLogin.BackColor = Color.Fuchsia;
+            btnLogin.Location = new Point(297, 197);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(75, 23);
+            btnLogin.Size = new Size(180, 42);
             btnLogin.TabIndex = 6;
             btnLogin.Text = "Login";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
             // btnSignIn
             // 
-            btnSignIn.Location = new Point(356, 255);
+            btnSignIn.BackColor = Color.Fuchsia;
+            btnSignIn.Location = new Point(303, 255);
             btnSignIn.Name = "btnSignIn";
-            btnSignIn.Size = new Size(75, 23);
+            btnSignIn.Size = new Size(174, 38);
             btnSignIn.TabIndex = 7;
             btnSignIn.Text = "Sign In (Register)\n";
-            btnSignIn.UseVisualStyleBackColor = true;
+            btnSignIn.UseVisualStyleBackColor = false;
             btnSignIn.Click += btnSignIn_Click;
             // 
             // lblError
@@ -122,10 +124,10 @@
             // 
             // btnExit
             // 
-            btnExit.BackColor = SystemColors.MenuHighlight;
-            btnExit.Location = new Point(356, 335);
+            btnExit.BackColor = Color.IndianRed;
+            btnExit.Location = new Point(303, 344);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(75, 23);
+            btnExit.Size = new Size(174, 81);
             btnExit.TabIndex = 9;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = false;
@@ -135,7 +137,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.GradientActiveCaption;
+            BackColor = Color.Aquamarine;
             ClientSize = new Size(800, 450);
             Controls.Add(btnExit);
             Controls.Add(lblError);

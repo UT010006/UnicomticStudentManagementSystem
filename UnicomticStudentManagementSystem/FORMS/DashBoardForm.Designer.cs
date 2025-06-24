@@ -143,10 +143,10 @@
             // 
             // btnLogout
             // 
-            btnLogout.BackColor = SystemColors.GrayText;
-            btnLogout.Location = new Point(683, 368);
+            btnLogout.BackColor = Color.IndianRed;
+            btnLogout.Location = new Point(585, 304);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(75, 23);
+            btnLogout.Size = new Size(173, 87);
             btnLogout.TabIndex = 10;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
@@ -165,7 +165,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.HotTrack;
+            BackColor = Color.Cyan;
             ClientSize = new Size(800, 450);
             Controls.Add(btnSubRoom);
             Controls.Add(btnLogout);
